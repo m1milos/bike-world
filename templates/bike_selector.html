@@ -8,6 +8,17 @@
 
 <form action="{{ url_for('bike_selector') }}" method="POST">
     <div class="mb-3">
+        <label for="bike_type" class="form-label">What type of bike are you interested in?</label>
+        <select class="form-select" id="bike_type" name="bike_type" required>
+            <option value="">Choose...</option>
+            <option value="road">Road Bike</option>
+            <option value="mountain">Mountain Bike</option>
+            <option value="hybrid">Hybrid Bike</option>
+            <option value="cruiser">Cruiser Bike</option>
+            <option value="electric">Electric Bike</option>
+        </select>
+    </div>
+    <div class="mb-3">
         <label for="riding_surface" class="form-label">What surface do you plan to ride on most?</label>
         <select class="form-select" id="riding_surface" name="riding_surface" required>
             <option value="">Choose...</option>

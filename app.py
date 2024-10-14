@@ -63,6 +63,7 @@ def contact():
 def bike_selector():
     recommended_bike = None
     if request.method == 'POST':
+        bike_type = request.form.get('bike_type')
         riding_surface = request.form.get('riding_surface')
         primary_use = request.form.get('primary_use')
         experience_level = request.form.get('experience_level')
@@ -71,7 +72,7 @@ def bike_selector():
         electric_assist = request.form.get('electric_assist') == 'on'
 
         # Enhanced logic to recommend a bike based on user preferences
-        if riding_surface == 'road' and primary_use in ['commuting', 'exercise', 'racing']:
+        if bike_type == 'road':
             if experience_level == 'advanced' and budget == 'high' and wheel_size == '700c':
                 recommended_bike = {
                     'name': 'Carbon Fiber Road Bike',
@@ -84,7 +85,7 @@ def bike_selector():
                     'image': 'road_bike.jpg',
                     'description': 'A versatile road bike with an aluminum frame, suitable for commuting and fitness riding. It offers a good balance of speed and comfort, making it an excellent choice for riders of all levels who want to enjoy road cycling without breaking the bank.'
                 }
-        elif riding_surface == 'off_road' or primary_use == 'mountain_biking':
+        elif bike_type == 'mountain':
             if experience_level == 'advanced' and budget == 'high' and wheel_size in ['27.5', '29']:
                 recommended_bike = {
                     'name': 'Full Suspension Mountain Bike',
@@ -97,43 +98,43 @@ def bike_selector():
                     'image': 'mountain_bike.jpg',
                     'description': 'A durable mountain bike with front suspension, great for off-road trails and beginners. The hardtail design offers a good balance of efficiency and comfort, making it suitable for a wide range of trail conditions and skill levels.'
                 }
-        elif riding_surface == 'gravel' or primary_use == 'touring':
-            recommended_bike = {
-                'name': 'Gravel Bike',
-                'image': 'gravel_bike.jpg',
-                'description': 'A versatile bike designed for mixed terrain, perfect for long rides on unpaved roads and light trails. With wider tires and a more relaxed geometry than road bikes, gravel bikes offer comfort and stability on various surfaces, making them ideal for adventurous riders who like to explore beyond paved roads.'
-            }
-        elif riding_surface == 'urban' and primary_use == 'commuting':
-            recommended_bike = {
-                'name': 'City Bike',
-                'image': 'city_bike.jpg',
-                'description': 'A comfortable and practical bike for urban commuting, equipped with fenders and a rack. City bikes are designed for everyday use in urban environments, offering an upright riding position for better visibility and comfort. They often come with features like built-in lights and low-maintenance components, perfect for daily commuters.'
-            }
-        elif primary_use == 'leisure' and budget == 'low':
-            recommended_bike = {
-                'name': 'Cruiser Bike',
-                'image': 'cruiser_bike.jpg',
-                'description': 'A comfortable bike for casual rides and leisurely cycling in flat areas. With a relaxed upright position, wide tires, and often a single-speed drivetrain, cruiser bikes are perfect for easy rides around town or along the beach. They prioritize comfort and style over speed, making them ideal for casual cyclists.'
-            }
-        elif primary_use == 'trick_riding' and wheel_size in ['16', '20']:
-            recommended_bike = {
-                'name': 'BMX Bike',
-                'image': 'bmx_bike.jpg',
-                'description': "A small, sturdy bike designed for tricks and stunts in bike parks or urban environments. BMX bikes feature a compact frame, strong wheels, and simplified drivetrain, allowing riders to perform various tricks and maneuvers. They're popular among young riders and those interested in freestyle riding or BMX racing."
-            }
-        else:
+        elif bike_type == 'hybrid':
             recommended_bike = {
                 'name': 'Hybrid Bike',
                 'image': 'hybrid_bike.jpg',
                 'description': "A versatile bike that combines features of road and mountain bikes, suitable for various terrains and uses. Hybrid bikes offer a comfortable upright position, medium-width tires for diverse surfaces, and a wide range of gears. They're an excellent all-around choice for riders who want one bike for commuting, fitness riding, and light trail use."
             }
-
-        if electric_assist:
+        elif bike_type == 'cruiser':
             recommended_bike = {
-                'name': f"Electric {recommended_bike['name']}",
-                'image': 'electric_bike.jpg',
-                'description': f"An electric-assist version of the {recommended_bike['name'].lower()}, providing extra power for easier riding and longer distances. E-bikes are perfect for riders who want to extend their range, tackle hilly terrain with ease, or simply arrive at their destination without breaking a sweat. They're particularly useful for commuters and those with physical limitations."
+                'name': 'Cruiser Bike',
+                'image': 'cruiser_bike.jpg',
+                'description': 'A comfortable bike for casual rides and leisurely cycling in flat areas. With a relaxed upright position, wide tires, and often a single-speed drivetrain, cruiser bikes are perfect for easy rides around town or along the beach. They prioritize comfort and style over speed, making them ideal for casual cyclists.'
             }
+        elif bike_type == 'electric':
+            recommended_bike = {
+                'name': 'Electric Bike',
+                'image': 'electric_bike.jpg',
+                'description': "An electric-assist bike, providing extra power for easier riding and longer distances. E-bikes are perfect for riders who want to extend their range, tackle hilly terrain with ease, or simply arrive at their destination without breaking a sweat. They're particularly useful for commuters and those with physical limitations."
+            }
+        else:
+            # Fallback option if no specific bike type is selected
+            recommended_bike = {
+                'name': 'Versatile Hybrid Bike',
+                'image': 'hybrid_bike.jpg',
+                'description': "A versatile hybrid bike that combines features of various bike types, suitable for multiple terrains and uses. This bike is recommended based on your preferences for a well-rounded riding experience."
+            }
+
+        # Additional customization based on other factors
+        if riding_surface == 'gravel' and bike_type != 'mountain':
+            recommended_bike['name'] = f"Gravel-ready {recommended_bike['name']}"
+            recommended_bike['description'] += " This bike has been adapted for gravel riding with slightly wider tires and a more stable frame geometry."
+
+        if primary_use == 'commuting' and bike_type not in ['cruiser', 'electric']:
+            recommended_bike['description'] += " For commuting, this bike can be equipped with racks and fenders to make your daily rides more convenient."
+
+        if electric_assist and bike_type != 'electric':
+            recommended_bike['name'] = f"Electric {recommended_bike['name']}"
+            recommended_bike['description'] += " As per your preference, this bike comes with electric assist, providing extra power when you need it."
 
         recommended_bike['description'] += f" Recommended with {wheel_size} inch wheels, which are well-suited for this type of bike and your riding preferences."
 
