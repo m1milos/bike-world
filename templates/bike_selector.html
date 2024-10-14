@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1 class="mb-4">Bike Selector</h1>
-<p class="lead">Answer a few questions to find the perfect bike for you!</p>
+<p class="lead">Our interactive bike selector tool helps you find the perfect bike based on your preferences and needs. Simply answer a few questions, and we'll recommend the best bike for you!</p>
 
 <form action="{{ url_for('bike_selector') }}" method="POST">
     <div class="mb-3">
@@ -82,4 +82,17 @@
     </div>
 </div>
 {% endif %}
+
+<div class="mt-5">
+    <h2>Learn More About Bike Types</h2>
+    <p>Not sure which type of bike suits your needs? Learn more about different bike types to make an informed decision:</p>
+    <ul>
+        <li><strong>Road Bikes:</strong> Designed for speed and efficiency on paved roads.</li>
+        <li><strong>Mountain Bikes:</strong> Built for off-road cycling on rough terrain.</li>
+        <li><strong>Hybrid Bikes:</strong> A versatile option combining features of road and mountain bikes.</li>
+        <li><strong>Cruiser Bikes:</strong> Comfortable bikes for casual riding on flat surfaces.</li>
+        <li><strong>Electric Bikes:</strong> Equipped with an electric motor for assisted pedaling.</li>
+    </ul>
+    <a href="{{ url_for('bike_types') }}" class="btn btn-secondary">Explore Bike Types in Detail</a>
+</div>
 {% endblock %}
