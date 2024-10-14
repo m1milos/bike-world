@@ -66,13 +66,13 @@ def bike_selector():
         riding_surface = request.form.get('riding_surface')
         primary_use = request.form.get('primary_use')
         experience_level = request.form.get('experience_level')
-        frame_size = request.form.get('frame_size')
+        wheel_size = request.form.get('wheel_size')
         budget = request.form.get('budget')
         electric_assist = request.form.get('electric_assist') == 'on'
 
         # Enhanced logic to recommend a bike based on user preferences
         if riding_surface == 'road' and primary_use in ['commuting', 'exercise', 'racing']:
-            if experience_level == 'advanced' and budget == 'high':
+            if experience_level == 'advanced' and budget == 'high' and wheel_size == '700c':
                 recommended_bike = {
                     'name': 'Carbon Fiber Road Bike',
                     'image': 'carbon_road_bike.jpg',
@@ -85,7 +85,7 @@ def bike_selector():
                     'description': 'A versatile road bike with an aluminum frame, suitable for commuting and fitness riding.'
                 }
         elif riding_surface == 'off_road' or primary_use == 'mountain_biking':
-            if experience_level == 'advanced' and budget == 'high':
+            if experience_level == 'advanced' and budget == 'high' and wheel_size in ['27.5', '29']:
                 recommended_bike = {
                     'name': 'Full Suspension Mountain Bike',
                     'image': 'full_suspension_mtb.jpg',
@@ -115,7 +115,7 @@ def bike_selector():
                 'image': 'cruiser_bike.jpg',
                 'description': 'A comfortable bike for casual rides and leisurely cycling in flat areas.'
             }
-        elif primary_use == 'trick_riding':
+        elif primary_use == 'trick_riding' and wheel_size in ['16', '20']:
             recommended_bike = {
                 'name': 'BMX Bike',
                 'image': 'bmx_bike.jpg',
@@ -135,7 +135,7 @@ def bike_selector():
                 'description': f"An electric-assist version of the {recommended_bike['name'].lower()}, providing extra power for easier riding and longer distances."
             }
 
-        recommended_bike['description'] += f" Available in size {frame_size}."
+        recommended_bike['description'] += f" Recommended with {wheel_size} inch wheels."
 
     return render_template('bike_selector.html', recommended_bike=recommended_bike)
 
