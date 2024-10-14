@@ -1,5 +1,27 @@
-/* Add any custom styles here if needed */
+/* Custom styles */
+body {
+    background-color: #e6f2ff; /* Light blue background */
+    color: #333; /* Dark text color for better readability */
+}
+
 .card-img-top {
     height: 200px;
     object-fit: cover;
+}
+
+.jumbotron {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary blue */
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    border-color: #0056b3;
 }

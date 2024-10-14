@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file
+import requests
+import io
 
 app = Flask(__name__)
 
@@ -40,3 +42,16 @@ def bike_types():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/static/images/dual_suspension_mountain_bike.jpg')
+def serve_dual_suspension_bike_image():
+    image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Dual_suspension_mountain_bike.jpg/640px-Dual_suspension_mountain_bike.jpg"
+    response = requests.get(image_url)
+    return send_file(
+        io.BytesIO(response.content),
+        mimetype='image/jpeg',
+        download_name='dual_suspension_mountain_bike.jpg'
+    )
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
