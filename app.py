@@ -64,6 +64,7 @@ def bike_selector():
     recommended_bike = None
     if request.method == 'POST':
         bike_type = request.form.get('bike_type')
+        suspension_type = request.form.get('suspension_type')
         riding_surface = request.form.get('riding_surface')
         primary_use = request.form.get('primary_use')
         experience_level = request.form.get('experience_level')
@@ -86,17 +87,23 @@ def bike_selector():
                     'description': 'A versatile road bike with an aluminum frame, suitable for commuting and fitness riding. It offers a good balance of speed and comfort, making it an excellent choice for riders of all levels who want to enjoy road cycling without breaking the bank.'
                 }
         elif bike_type == 'mountain':
-            if experience_level == 'advanced' and budget == 'high' and wheel_size in ['27.5', '29']:
+            if suspension_type == 'dual':
                 recommended_bike = {
                     'name': 'Full Suspension Mountain Bike',
                     'image': 'full_suspension_mtb.jpg',
                     'description': 'A high-end mountain bike with front and rear suspension, ideal for technical trails and downhill riding. The full suspension system provides maximum control and comfort on rough terrain, allowing you to tackle the most challenging off-road adventures with confidence.'
                 }
-            else:
+            elif suspension_type == 'hardtail':
                 recommended_bike = {
                     'name': 'Hardtail Mountain Bike',
-                    'image': 'mountain_bike.jpg',
-                    'description': 'A durable mountain bike with front suspension, great for off-road trails and beginners. The hardtail design offers a good balance of efficiency and comfort, making it suitable for a wide range of trail conditions and skill levels.'
+                    'image': 'hardtail_mtb.jpg',
+                    'description': 'A versatile mountain bike with front suspension, great for a wide range of off-road trails. The hardtail design offers a good balance of efficiency and comfort, making it suitable for cross-country riding and light trail use. It\'s an excellent choice for beginners and intermediate riders looking for a responsive and capable off-road bike.'
+                }
+            else:
+                recommended_bike = {
+                    'name': 'Rigid Mountain Bike',
+                    'image': 'rigid_mtb.jpg',
+                    'description': 'A simple and efficient mountain bike with no suspension, perfect for smooth trails and riders who prefer direct feedback from the terrain. Rigid mountain bikes are lightweight, easy to maintain, and offer excellent power transfer, making them ideal for cross-country racing and riders who value simplicity and reliability.'
                 }
         elif bike_type == 'hybrid':
             recommended_bike = {
