@@ -67,14 +67,13 @@ def bike_selector():
         suspension_type = request.form.get('suspension_type')
         riding_surface = request.form.get('riding_surface')
         primary_use = request.form.get('primary_use')
-        experience_level = request.form.get('experience_level')
         wheel_size = request.form.get('wheel_size')
         budget = request.form.get('budget')
         electric_assist = request.form.get('electric_assist') == 'on'
 
         # Enhanced logic to recommend a bike based on user preferences
         if bike_type == 'road':
-            if experience_level == 'advanced' and budget == 'high' and wheel_size == '700c':
+            if budget == 'high' and wheel_size == '700c':
                 recommended_bike = {
                     'name': 'Carbon Fiber Road Bike',
                     'image': 'carbon_road_bike.jpg',
@@ -97,7 +96,7 @@ def bike_selector():
                 recommended_bike = {
                     'name': 'Hardtail Mountain Bike',
                     'image': 'hardtail_mtb.jpg',
-                    'description': 'A versatile mountain bike with front suspension, great for a wide range of off-road trails. The hardtail design offers a good balance of efficiency and comfort, making it suitable for cross-country riding and light trail use. It\'s an excellent choice for beginners and intermediate riders looking for a responsive and capable off-road bike.'
+                    'description': 'A versatile mountain bike with front suspension, great for a wide range of off-road trails. The hardtail design offers a good balance of efficiency and comfort, making it suitable for cross-country riding and light trail use. It\'s an excellent choice for riders looking for a responsive and capable off-road bike.'
                 }
             else:
                 recommended_bike = {
