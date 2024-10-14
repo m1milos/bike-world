@@ -82,13 +82,13 @@
 </form>
 
 {% if recommended_bike %}
-<div class="mt-4">
-    <h2>Recommended Bike</h2>
+<div class="mt-5">
+    <h2 class="display-4 mb-4">Recommended Bike</h2>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ recommended_bike.name }}</h5>
-            <p class="card-text">{{ recommended_bike.description }}</p>
-            <img src="{{ url_for('static', filename='images/' + recommended_bike.image) }}" class="img-fluid rounded" alt="{{ recommended_bike.name }}">
+            <h3 class="card-title display-5 mb-4">{{ recommended_bike.name }}</h3>
+            <img src="{{ url_for('static', filename='images/' + recommended_bike.image) }}" class="img-fluid rounded mb-4" alt="{{ recommended_bike.name }}" style="max-height: 400px;">
+            <p class="card-text lead">{{ recommended_bike.description }}</p>
         </div>
     </div>
 </div>

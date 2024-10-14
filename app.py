@@ -73,54 +73,40 @@ def bike_selector():
 
         # Enhanced logic to recommend a bike based on user preferences
         if bike_type == 'road':
-            if budget == 'high' and wheel_size == '700c':
-                recommended_bike = {
-                    'name': 'Carbon Fiber Road Bike',
-                    'image': 'carbon_road_bike.jpg',
-                    'description': 'A high-performance road bike with a lightweight carbon fiber frame, perfect for racing and long rides. Its aerodynamic design and responsive handling make it ideal for experienced riders looking to maximize speed and efficiency on paved roads.'
-                }
-            else:
-                recommended_bike = {
-                    'name': 'Aluminum Road Bike',
-                    'image': 'road_bike.jpg',
-                    'description': 'A versatile road bike with an aluminum frame, suitable for commuting and fitness riding. It offers a good balance of speed and comfort, making it an excellent choice for riders of all levels who want to enjoy road cycling without breaking the bank.'
-                }
+            recommended_bike = {
+                'name': 'High-Performance Road Bike' if budget == 'high' else 'Versatile Road Bike',
+                'image': 'road_bike.jpg',
+                'description': 'A high-performance road bike with a lightweight frame, perfect for racing and long rides.' if budget == 'high' else 'A versatile road bike suitable for commuting and fitness riding, offering a good balance of speed and comfort.'
+            }
         elif bike_type == 'mountain':
+            recommended_bike = {
+                'name': f"{suspension_type.capitalize()} Mountain Bike",
+                'image': 'mountain_bike.jpg',
+                'description': f"A {suspension_type} mountain bike designed for off-road adventures. "
+            }
             if suspension_type == 'dual':
-                recommended_bike = {
-                    'name': 'Full Suspension Mountain Bike',
-                    'image': 'full_suspension_mtb.jpg',
-                    'description': 'A high-end mountain bike with front and rear suspension, ideal for technical trails and downhill riding. The full suspension system provides maximum control and comfort on rough terrain, allowing you to tackle the most challenging off-road adventures with confidence.'
-                }
+                recommended_bike['description'] += "Features front and rear suspension for maximum control on technical trails."
             elif suspension_type == 'hardtail':
-                recommended_bike = {
-                    'name': 'Hardtail Mountain Bike',
-                    'image': 'hardtail_mtb.jpg',
-                    'description': 'A versatile mountain bike with front suspension, great for a wide range of off-road trails. The hardtail design offers a good balance of efficiency and comfort, making it suitable for cross-country riding and light trail use. It\'s an excellent choice for riders looking for a responsive and capable off-road bike.'
-                }
+                recommended_bike['description'] += "Equipped with front suspension, offering a balance of efficiency and comfort for various terrains."
             else:
-                recommended_bike = {
-                    'name': 'Rigid Mountain Bike',
-                    'image': 'rigid_mtb.jpg',
-                    'description': 'A simple and efficient mountain bike with no suspension, perfect for smooth trails and riders who prefer direct feedback from the terrain. Rigid mountain bikes are lightweight, easy to maintain, and offer excellent power transfer, making them ideal for cross-country racing and riders who value simplicity and reliability.'
-                }
+                recommended_bike['description'] += "A rigid frame provides direct feedback from the trail, ideal for smooth paths and cross-country riding."
         elif bike_type == 'hybrid':
             recommended_bike = {
                 'name': 'Hybrid Bike',
                 'image': 'hybrid_bike.jpg',
-                'description': "A versatile bike that combines features of road and mountain bikes, suitable for various terrains and uses. Hybrid bikes offer a comfortable upright position, medium-width tires for diverse surfaces, and a wide range of gears. They're an excellent all-around choice for riders who want one bike for commuting, fitness riding, and light trail use."
+                'description': "A versatile bike that combines features of road and mountain bikes, suitable for various terrains and uses. Offers a comfortable upright position and is great for commuting, fitness riding, and light trail use."
             }
         elif bike_type == 'cruiser':
             recommended_bike = {
                 'name': 'Cruiser Bike',
                 'image': 'cruiser_bike.jpg',
-                'description': 'A comfortable bike for casual rides and leisurely cycling in flat areas. With a relaxed upright position, wide tires, and often a single-speed drivetrain, cruiser bikes are perfect for easy rides around town or along the beach. They prioritize comfort and style over speed, making them ideal for casual cyclists.'
+                'description': 'A comfortable bike for casual rides and leisurely cycling in flat areas. Features a relaxed upright position and wide tires, perfect for easy rides around town or along the beach.'
             }
         elif bike_type == 'electric':
             recommended_bike = {
                 'name': 'Electric Bike',
                 'image': 'electric_bike.jpg',
-                'description': "An electric-assist bike, providing extra power for easier riding and longer distances. E-bikes are perfect for riders who want to extend their range, tackle hilly terrain with ease, or simply arrive at their destination without breaking a sweat. They're particularly useful for commuters and those with physical limitations."
+                'description': "An electric-assist bike, providing extra power for easier riding and longer distances. Ideal for commuters, those tackling hilly terrain, or riders wanting to extend their range."
             }
         else:
             # Fallback option if no specific bike type is selected
