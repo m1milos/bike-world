@@ -87,17 +87,7 @@
     <div class="card">
         <div class="card-body text-center">
             <h3 class="card-title display-3 mb-4">{{ recommended_bike.name }}</h3>
-            {% if recommended_bike.images %}
-                <div class="row">
-                {% for image in recommended_bike.images %}
-                    <div class="col-md-6">
-                        <img src="{{ url_for('static', filename='images/' + image) }}" class="img-fluid rounded mb-4" alt="{{ recommended_bike.name }} - {{ loop.index0 == 0 ? 'Red' : 'Blue' }} Color">
-                    </div>
-                {% endfor %}
-                </div>
-            {% elif recommended_bike.image %}
-                <img src="{{ url_for('static', filename='images/' + recommended_bike.image) }}" class="img-fluid rounded mb-4" alt="{{ recommended_bike.name }}" style="max-height: 400px; width: auto;">
-            {% endif %}
+            <img src="{{ url_for('static', filename='images/' + recommended_bike.image) }}" class="img-fluid rounded mb-4" alt="{{ recommended_bike.name }}" style="max-height: 400px; width: auto;">
             <p class="card-text lead">{{ recommended_bike.description }}</p>
         </div>
     </div>

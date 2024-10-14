@@ -81,9 +81,9 @@ def bike_selector():
         elif bike_type == 'mountain':
             if suspension_type == 'dual' and wheel_size == '24':
                 recommended_bike = {
-                    'name': 'Polygon Siskiu D24 Mountain Bike',
-                    'images': ['polygon-siskiu-d24.webp', 'polygon-siskiu d24.webp'],
-                    'description': 'The Polygon Siskiu D24 is an excellent 24-inch dual suspension mountain bike for young riders. We offer two color options: red and blue. This bike features a lightweight frame, responsive suspension, and reliable components, making it perfect for tackling trails and developing mountain biking skills.'
+                    'name': '24-inch Dual Suspension Mountain Bike',
+                    'image': 'image.png',
+                    'description': 'A 24-inch dual suspension mountain bike perfect for young riders or those who prefer a more compact frame. This bike offers excellent control and comfort on rough terrains, featuring both front and rear suspension for maximum shock absorption.'
                 }
             else:
                 recommended_bike = {
