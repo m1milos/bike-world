@@ -79,11 +79,18 @@ def bike_selector():
                 'description': 'A high-performance road bike with a lightweight frame, perfect for racing and long rides.' if budget == 'high' else 'A versatile road bike suitable for commuting and fitness riding, offering a good balance of speed and comfort.'
             }
         elif bike_type == 'mountain':
-            recommended_bike = {
-                'name': f"{suspension_type.capitalize()} Mountain Bike",
-                'image': 'mountain_bike.jpg',
-                'description': f"A {suspension_type} mountain bike designed for off-road adventures. "
-            }
+            if suspension_type == 'dual' and wheel_size == '24':
+                recommended_bike = {
+                    'name': 'Polygon Siskiu D24 Mountain Bike',
+                    'image': 'polygon-siskiu-d24.webp',
+                    'description': "A 24-inch dual suspension mountain bike perfect for young riders or those who prefer a more compact frame. Offers excellent control and comfort on rough terrains."
+                }
+            else:
+                recommended_bike = {
+                    'name': f"{suspension_type.capitalize()} Mountain Bike",
+                    'image': 'mountain_bike.jpg',
+                    'description': f"A {suspension_type} mountain bike designed for off-road adventures. "
+                }
         elif bike_type == 'hybrid':
             recommended_bike = {
                 'name': 'Hybrid Bike',
@@ -111,7 +118,7 @@ def bike_selector():
             }
 
         # Add suspension information to the description for all bike types
-        if suspension_type:
+        if suspension_type and bike_type != 'mountain':
             if suspension_type == 'dual':
                 recommended_bike['description'] += " Features front and rear suspension for maximum control on technical trails and rough terrain."
             elif suspension_type == 'hardtail':
@@ -131,7 +138,8 @@ def bike_selector():
             recommended_bike['name'] = f"Electric {recommended_bike['name']}"
             recommended_bike['description'] += " As per your preference, this bike comes with electric assist, providing extra power when you need it."
 
-        recommended_bike['description'] += f" Recommended with {wheel_size} inch wheels, which are well-suited for this type of bike and your riding preferences."
+        if wheel_size and wheel_size != '24':
+            recommended_bike['description'] += f" Recommended with {wheel_size} inch wheels, which are well-suited for this type of bike and your riding preferences."
 
     return render_template('bike_selector.html', recommended_bike=recommended_bike)
 
