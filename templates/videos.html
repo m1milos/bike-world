@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Bike Videos - Bike World{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Bike Capabilities Videos</h1>
+<p class="lead">Watch these videos to see different types of bikes in action and learn about their capabilities.</p>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card h-100">
+            <div class="ratio ratio-16x9">
+                <iframe src="https://www.youtube.com/embed/WkuZDH_hIjU" title="Road Bike Capabilities" allowfullscreen></iframe>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Road Bike Capabilities</h5>
+                <p class="card-text">Experience the speed and efficiency of road bikes on paved surfaces.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <div class="ratio ratio-16x9">
+                <iframe src="https://www.youtube.com/embed/voNqjCAy6Sg" title="Mountain Bike Capabilities" allowfullscreen></iframe>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Mountain Bike Capabilities</h5>
+                <p class="card-text">See how mountain bikes handle rough terrains and steep trails.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <div class="ratio ratio-16x9">
+                <iframe src="https://www.youtube.com/embed/kWBhP0EQ1lA" title="Hybrid Bike Capabilities" allowfullscreen></iframe>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Hybrid Bike Capabilities</h5>
+                <p class="card-text">Discover the versatility of hybrid bikes in various riding conditions.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <div class="ratio ratio-16x9">
+                <iframe src="https://www.youtube.com/embed/q39Qgf1WNq0" title="Electric Bike Capabilities" allowfullscreen></iframe>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Electric Bike Capabilities</h5>
+                <p class="card-text">Learn about the power and convenience of electric bikes for various uses.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

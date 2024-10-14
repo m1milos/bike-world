@@ -143,6 +143,10 @@ def bike_selector():
 
     return render_template('bike_selector.html', recommended_bike=recommended_bike)
 
+@app.route('/videos')
+def videos():
+    return render_template('videos.html')
+
 @app.route('/static/images/dual_suspension_mountain_bike.jpg')
 def serve_dual_suspension_bike_image():
     image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Dual_suspension_mountain_bike.jpg/640px-Dual_suspension_mountain_bike.jpg"
