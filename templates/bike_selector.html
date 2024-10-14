@@ -14,6 +14,9 @@
             <option value="road">Paved roads</option>
             <option value="off_road">Off-road trails</option>
             <option value="mixed">Mixed terrain</option>
+            <option value="urban">Urban streets</option>
+            <option value="gravel">Gravel roads</option>
+            <option value="bike_park">Bike park</option>
         </select>
     </div>
     <div class="mb-3">
@@ -24,6 +27,28 @@
             <option value="exercise">Exercise and fitness</option>
             <option value="leisure">Leisure rides</option>
             <option value="racing">Racing</option>
+            <option value="touring">Touring</option>
+            <option value="mountain_biking">Mountain biking</option>
+            <option value="trick_riding">Trick riding</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="experience_level" class="form-label">What's your riding experience level?</label>
+        <select class="form-select" id="experience_level" name="experience_level" required>
+            <option value="">Choose...</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="frame_size" class="form-label">Preferred frame size</label>
+        <select class="form-select" id="frame_size" name="frame_size" required>
+            <option value="">Choose...</option>
+            <option value="S">Small (S)</option>
+            <option value="M">Medium (M)</option>
+            <option value="L">Large (L)</option>
+            <option value="XL">Extra Large (XL)</option>
         </select>
     </div>
     <div class="mb-3">
@@ -34,6 +59,10 @@
             <option value="medium">$500 - $1000</option>
             <option value="high">Over $1000</option>
         </select>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="electric_assist" name="electric_assist">
+        <label class="form-check-label" for="electric_assist">I'm interested in electric assist</label>
     </div>
     <button type="submit" class="btn btn-primary">Find My Bike</button>
 </form>

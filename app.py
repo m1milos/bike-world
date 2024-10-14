@@ -65,39 +65,77 @@ def bike_selector():
     if request.method == 'POST':
         riding_surface = request.form.get('riding_surface')
         primary_use = request.form.get('primary_use')
+        experience_level = request.form.get('experience_level')
+        frame_size = request.form.get('frame_size')
         budget = request.form.get('budget')
+        electric_assist = request.form.get('electric_assist') == 'on'
 
-        # Simple logic to recommend a bike based on user preferences
+        # Enhanced logic to recommend a bike based on user preferences
         if riding_surface == 'road' and primary_use in ['commuting', 'exercise', 'racing']:
+            if experience_level == 'advanced' and budget == 'high':
+                recommended_bike = {
+                    'name': 'Carbon Fiber Road Bike',
+                    'image': 'carbon_road_bike.jpg',
+                    'description': 'A high-performance road bike with a lightweight carbon fiber frame, perfect for racing and long rides.'
+                }
+            else:
+                recommended_bike = {
+                    'name': 'Aluminum Road Bike',
+                    'image': 'road_bike.jpg',
+                    'description': 'A versatile road bike with an aluminum frame, suitable for commuting and fitness riding.'
+                }
+        elif riding_surface == 'off_road' or primary_use == 'mountain_biking':
+            if experience_level == 'advanced' and budget == 'high':
+                recommended_bike = {
+                    'name': 'Full Suspension Mountain Bike',
+                    'image': 'full_suspension_mtb.jpg',
+                    'description': 'A high-end mountain bike with front and rear suspension, ideal for technical trails and downhill riding.'
+                }
+            else:
+                recommended_bike = {
+                    'name': 'Hardtail Mountain Bike',
+                    'image': 'mountain_bike.jpg',
+                    'description': 'A durable mountain bike with front suspension, great for off-road trails and beginners.'
+                }
+        elif riding_surface == 'gravel' or primary_use == 'touring':
             recommended_bike = {
-                'name': 'Road Bike',
-                'image': 'road_bike.jpg',
-                'description': 'A lightweight and fast bike perfect for paved roads and speed.'
+                'name': 'Gravel Bike',
+                'image': 'gravel_bike.jpg',
+                'description': 'A versatile bike designed for mixed terrain, perfect for long rides on unpaved roads and light trails.'
             }
-        elif riding_surface == 'off_road':
+        elif riding_surface == 'urban' and primary_use == 'commuting':
             recommended_bike = {
-                'name': 'Mountain Bike',
-                'image': 'mountain_bike.jpg',
-                'description': 'A sturdy bike built for rough terrains and off-road adventures.'
-            }
-        elif riding_surface == 'mixed' or primary_use in ['commuting', 'leisure']:
-            recommended_bike = {
-                'name': 'Hybrid Bike',
-                'image': 'hybrid_bike.jpg',
-                'description': 'A versatile bike suitable for various terrains and casual riding.'
+                'name': 'City Bike',
+                'image': 'city_bike.jpg',
+                'description': 'A comfortable and practical bike for urban commuting, equipped with fenders and a rack.'
             }
         elif primary_use == 'leisure' and budget == 'low':
             recommended_bike = {
                 'name': 'Cruiser Bike',
                 'image': 'cruiser_bike.jpg',
-                'description': 'A comfortable bike for casual rides and leisurely cycling.'
+                'description': 'A comfortable bike for casual rides and leisurely cycling in flat areas.'
+            }
+        elif primary_use == 'trick_riding':
+            recommended_bike = {
+                'name': 'BMX Bike',
+                'image': 'bmx_bike.jpg',
+                'description': 'A small, sturdy bike designed for tricks and stunts in bike parks or urban environments.'
             }
         else:
             recommended_bike = {
-                'name': 'Electric Bike',
-                'image': 'electric_bike.jpg',
-                'description': 'A bike with electric assistance, suitable for various uses and terrains.'
+                'name': 'Hybrid Bike',
+                'image': 'hybrid_bike.jpg',
+                'description': 'A versatile bike that combines features of road and mountain bikes, suitable for various terrains and uses.'
             }
+
+        if electric_assist:
+            recommended_bike = {
+                'name': f"Electric {recommended_bike['name']}",
+                'image': 'electric_bike.jpg',
+                'description': f"An electric-assist version of the {recommended_bike['name'].lower()}, providing extra power for easier riding and longer distances."
+            }
+
+        recommended_bike['description'] += f" Available in size {frame_size}."
 
     return render_template('bike_selector.html', recommended_bike=recommended_bike)
 
