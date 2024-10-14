@@ -18,8 +18,8 @@
             <option value="electric">Electric Bike</option>
         </select>
     </div>
-    <div class="mb-3 d-none" id="suspension_type_container">
-        <label for="suspension_type" class="form-label">Preferred suspension type for mountain bike</label>
+    <div class="mb-3">
+        <label for="suspension_type" class="form-label">Preferred suspension type (if applicable)</label>
         <select class="form-select" id="suspension_type" name="suspension_type">
             <option value="">Choose...</option>
             <option value="dual">Dual Suspension</option>
@@ -107,14 +107,4 @@
     <a href="{{ url_for('bike_types') }}" class="btn btn-secondary">Explore Bike Types in Detail</a>
 </div>
 
-<script>
-    document.getElementById('bike_type').addEventListener('change', function() {
-        var suspensionTypeContainer = document.getElementById('suspension_type_container');
-        if (this.value === 'mountain') {
-            suspensionTypeContainer.classList.remove('d-none');
-        } else {
-            suspensionTypeContainer.classList.add('d-none');
-        }
-    });
-</script>
 {% endblock %}

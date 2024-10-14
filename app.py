@@ -84,12 +84,6 @@ def bike_selector():
                 'image': 'mountain_bike.jpg',
                 'description': f"A {suspension_type} mountain bike designed for off-road adventures. "
             }
-            if suspension_type == 'dual':
-                recommended_bike['description'] += "Features front and rear suspension for maximum control on technical trails."
-            elif suspension_type == 'hardtail':
-                recommended_bike['description'] += "Equipped with front suspension, offering a balance of efficiency and comfort for various terrains."
-            else:
-                recommended_bike['description'] += "A rigid frame provides direct feedback from the trail, ideal for smooth paths and cross-country riding."
         elif bike_type == 'hybrid':
             recommended_bike = {
                 'name': 'Hybrid Bike',
@@ -115,6 +109,15 @@ def bike_selector():
                 'image': 'hybrid_bike.jpg',
                 'description': "A versatile hybrid bike that combines features of various bike types, suitable for multiple terrains and uses. This bike is recommended based on your preferences for a well-rounded riding experience."
             }
+
+        # Add suspension information to the description for all bike types
+        if suspension_type:
+            if suspension_type == 'dual':
+                recommended_bike['description'] += " Features front and rear suspension for maximum control on technical trails and rough terrain."
+            elif suspension_type == 'hardtail':
+                recommended_bike['description'] += " Equipped with front suspension, offering a balance of efficiency and comfort for various terrains."
+            elif suspension_type == 'no_suspension':
+                recommended_bike['description'] += " A rigid frame provides direct feedback from the terrain, ideal for riders who prefer simplicity and efficiency."
 
         # Additional customization based on other factors
         if riding_surface == 'gravel' and bike_type != 'mountain':
