@@ -91,7 +91,7 @@
                 <div class="row">
                 {% for image in recommended_bike.images %}
                     <div class="col-md-6">
-                        <img src="{{ url_for('static', filename='images/' + image) }}" class="img-fluid rounded mb-4" alt="{{ recommended_bike.name }}">
+                        <img src="{{ url_for('static', filename='images/' + image) }}" class="img-fluid rounded mb-4" alt="{{ recommended_bike.name }} - {{ loop.index0 == 0 ? 'Red' : 'Blue' }} Color">
                     </div>
                 {% endfor %}
                 </div>
