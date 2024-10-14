@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Bike World{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Welcome to Bike World</h1>
+<p class="lead">Discover the amazing world of bicycles and find the perfect ride for you!</p>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Why Choose Us?</h2>
+        <ul>
+            <li>Wide variety of bike types</li>
+            <li>Expert advice on choosing the right bike</li>
+            <li>Quality bikes for all skill levels</li>
+            <li>Passionate about cycling and the environment</li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h2>Featured Bike</h2>
+        <img src="{{ url_for('static', filename='images/road_bike.jpg') }}" alt="Road Bike" class="img-fluid rounded">
+        <p class="mt-2">Experience the thrill of speed with our featured road bike!</p>
+    </div>
+</div>
+<div class="text-center mt-4">
+    <a href="/bike-types" class="btn btn-primary btn-lg">Explore Bike Types</a>
+</div>
+{% endblock %}
