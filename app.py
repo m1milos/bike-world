@@ -1,8 +1,9 @@
-from flask import Flask, render_template, send_file
+from flask import Flask, render_template, send_file, request, flash, redirect, url_for
 import requests
 import io
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a secure secret key
 
 @app.route('/')
 def home():
@@ -42,6 +43,21 @@ def bike_types():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        message = request.form.get('message')
+        
+        # Here you would typically send an email or save the message to a database
+        # For now, we'll just flash a success message
+        flash('Thank you for your message! We will get back to you soon.', 'success')
+        return redirect(url_for('contact'))
+    
+    return render_template('contact.html')
 
 @app.route('/static/images/dual_suspension_mountain_bike.jpg')
 def serve_dual_suspension_bike_image():
