@@ -59,6 +59,48 @@ def contact():
     
     return render_template('contact.html')
 
+@app.route('/bike-selector', methods=['GET', 'POST'])
+def bike_selector():
+    recommended_bike = None
+    if request.method == 'POST':
+        riding_surface = request.form.get('riding_surface')
+        primary_use = request.form.get('primary_use')
+        budget = request.form.get('budget')
+
+        # Simple logic to recommend a bike based on user preferences
+        if riding_surface == 'road' and primary_use in ['commuting', 'exercise', 'racing']:
+            recommended_bike = {
+                'name': 'Road Bike',
+                'image': 'road_bike.jpg',
+                'description': 'A lightweight and fast bike perfect for paved roads and speed.'
+            }
+        elif riding_surface == 'off_road':
+            recommended_bike = {
+                'name': 'Mountain Bike',
+                'image': 'mountain_bike.jpg',
+                'description': 'A sturdy bike built for rough terrains and off-road adventures.'
+            }
+        elif riding_surface == 'mixed' or primary_use in ['commuting', 'leisure']:
+            recommended_bike = {
+                'name': 'Hybrid Bike',
+                'image': 'hybrid_bike.jpg',
+                'description': 'A versatile bike suitable for various terrains and casual riding.'
+            }
+        elif primary_use == 'leisure' and budget == 'low':
+            recommended_bike = {
+                'name': 'Cruiser Bike',
+                'image': 'cruiser_bike.jpg',
+                'description': 'A comfortable bike for casual rides and leisurely cycling.'
+            }
+        else:
+            recommended_bike = {
+                'name': 'Electric Bike',
+                'image': 'electric_bike.jpg',
+                'description': 'A bike with electric assistance, suitable for various uses and terrains.'
+            }
+
+    return render_template('bike_selector.html', recommended_bike=recommended_bike)
+
 @app.route('/static/images/dual_suspension_mountain_bike.jpg')
 def serve_dual_suspension_bike_image():
     image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Dual_suspension_mountain_bike.jpg/640px-Dual_suspension_mountain_bike.jpg"

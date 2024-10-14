@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Bike Selector - Bike World{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Bike Selector</h1>
+<p class="lead">Answer a few questions to find the perfect bike for you!</p>
+
+<form action="{{ url_for('bike_selector') }}" method="POST">
+    <div class="mb-3">
+        <label for="riding_surface" class="form-label">What surface do you plan to ride on most?</label>
+        <select class="form-select" id="riding_surface" name="riding_surface" required>
+            <option value="">Choose...</option>
+            <option value="road">Paved roads</option>
+            <option value="off_road">Off-road trails</option>
+            <option value="mixed">Mixed terrain</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="primary_use" class="form-label">What's your primary use for the bike?</label>
+        <select class="form-select" id="primary_use" name="primary_use" required>
+            <option value="">Choose...</option>
+            <option value="commuting">Commuting</option>
+            <option value="exercise">Exercise and fitness</option>
+            <option value="leisure">Leisure rides</option>
+            <option value="racing">Racing</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="budget" class="form-label">What's your budget range?</label>
+        <select class="form-select" id="budget" name="budget" required>
+            <option value="">Choose...</option>
+            <option value="low">Under $500</option>
+            <option value="medium">$500 - $1000</option>
+            <option value="high">Over $1000</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Find My Bike</button>
+</form>
+
+{% if recommended_bike %}
+<div class="mt-4">
+    <h2>Recommended Bike</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ recommended_bike.name }}</h5>
+            <p class="card-text">{{ recommended_bike.description }}</p>
+            <img src="{{ url_for('static', filename='images/' + recommended_bike.image) }}" class="img-fluid rounded" alt="{{ recommended_bike.name }}">
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
