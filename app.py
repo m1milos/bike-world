@@ -82,14 +82,14 @@ def bike_selector():
             if suspension_type == 'dual' and wheel_size == '24':
                 recommended_bike = {
                     'name': 'Polygon Siskiu D24 Mountain Bike',
-                    'image': 'polygon-siskiu-d24.webp',
+                    'image': 'polygon-siskiu d24.webp',
                     'description': "A 24-inch dual suspension mountain bike perfect for young riders or those who prefer a more compact frame. Offers excellent control and comfort on rough terrains."
                 }
             else:
                 recommended_bike = {
-                    'name': f"{suspension_type.capitalize()} Mountain Bike",
+                    'name': f"{suspension_type.capitalize() if suspension_type else 'Mountain'} Bike",
                     'image': 'mountain_bike.jpg',
-                    'description': f"A {suspension_type} mountain bike designed for off-road adventures. "
+                    'description': f"A {'mountain' if not suspension_type else suspension_type} bike designed for off-road adventures. "
                 }
         elif bike_type == 'hybrid':
             recommended_bike = {
