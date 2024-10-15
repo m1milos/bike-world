@@ -27,7 +27,7 @@ def bike_selector():
                 elif suspension_type == 'hardtail':
                     recommended_bike = {
                         'name': 'Polygon Premier 24 Hardtail Mountain Bike',
-                        'image': 'polygon-siskiu-d24.webp',  # Updated image for 24-inch hardtail
+                        'image': 'polygon-siskiu-d24.webp',
                         'description': 'The Polygon Premier 24 is a high-quality hardtail mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and front suspension, it offers a perfect balance of efficiency and comfort for various trail conditions.'
                     }
             else:
