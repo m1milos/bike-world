@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect, url_for
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a secure secret key
 
 @app.route('/bike-selector', methods=['GET', 'POST'])
 def bike_selector():
@@ -24,9 +25,9 @@ def bike_selector():
             if wheel_size == '24':
                 if suspension_type == 'hardtail':
                     recommended_bike = {
-                        'name': 'Polygon Siskiu D24 Hardtail Mountain Bike',
-                        'image': 'polygon-siskiu-d24.webp',
-                        'description': 'The Polygon Siskiu D24 is a high-quality hardtail mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and front suspension, it offers a perfect balance of efficiency and comfort for various trail conditions.'
+                        'name': 'Polygon Premier 24 Hardtail Mountain Bike',
+                        'image': 'polygon.webp',
+                        'description': 'The Polygon Premier 24 is a high-quality hardtail mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and front suspension, it offers a perfect balance of efficiency and comfort for various trail conditions.'
                     }
             else:
                 recommended_bike = {
