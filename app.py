@@ -18,7 +18,7 @@ def bike_types():
         },
         {
             'name': 'Mountain Bike',
-            'image': 'mountain_bike.jpg',
+            'image': 'mountain bike.jpg',
             'description': 'Built for off-road cycling on rough terrain.'
         },
         {
