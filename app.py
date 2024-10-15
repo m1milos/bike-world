@@ -1,64 +1,3 @@
-from flask import Flask, render_template, send_file, request, flash, redirect, url_for
-import requests
-import io
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a secure secret key
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/bike-types')
-def bike_types():
-    bikes = [
-        {
-            'name': 'Road Bike',
-            'image': 'road_bike.jpg',
-            'description': 'Designed for speed and efficiency on paved roads.'
-        },
-        {
-            'name': 'Mountain Bike',
-            'image': 'mountain_bike.jpg',
-            'description': 'Built for off-road cycling on rough terrain.'
-        },
-        {
-            'name': 'Hybrid Bike',
-            'image': 'hybrid_bike.jpg',
-            'description': 'A versatile bike that combines features of road and mountain bikes.'
-        },
-        {
-            'name': 'Cruiser Bike',
-            'image': 'cruiser_bike.jpg',
-            'description': 'Comfortable bikes for casual riding on flat surfaces.'
-        },
-        {
-            'name': 'Electric Bike',
-            'image': 'electric_bike.jpg',
-            'description': 'Equipped with an electric motor for assisted pedaling.'
-        }
-    ]
-    return render_template('bike_types.html', bikes=bikes)
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        subject = request.form.get('subject')
-        message = request.form.get('message')
-        
-        # Here you would typically send an email or save the message to a database
-        # For now, we'll just flash a success message
-        flash('Thank you for your message! We will get back to you soon.', 'success')
-        return redirect(url_for('contact'))
-    
-    return render_template('contact.html')
-
 @app.route('/bike-selector', methods=['GET', 'POST'])
 def bike_selector():
     recommended_bike = None
@@ -69,28 +8,21 @@ def bike_selector():
         primary_use = request.form.get('primary_use')
         wheel_size = request.form.get('wheel_size')
         budget = request.form.get('budget')
-        electric_assist = request.form.get('electric_assist') == 'on'
+        electric_assist = 'electric_assist' in request.form
 
-        # Enhanced logic to recommend a bike based on user preferences
         if bike_type == 'road':
             recommended_bike = {
-                'name': 'High-Performance Road Bike' if budget == 'high' else 'Versatile Road Bike',
+                'name': 'Road Bike',
                 'image': 'road_bike.jpg',
-                'description': 'A high-performance road bike with a lightweight frame, perfect for racing and long rides.' if budget == 'high' else 'A versatile road bike suitable for commuting and fitness riding, offering a good balance of speed and comfort.'
+                'description': "A lightweight bike designed for speed and efficiency on paved roads. Ideal for long distances, racing, or fast-paced rides on smooth surfaces."
             }
         elif bike_type == 'mountain':
             if wheel_size == '24':
-                if suspension_type == 'dual':
+                if suspension_type == 'hardtail':
                     recommended_bike = {
-                        'name': 'Polygon Siskiu D24 Mountain Bike',
+                        'name': 'Polygon Siskiu D24 Hardtail Mountain Bike',
                         'image': 'polygon-siskiu-d24.webp',
-                        'description': 'The Polygon Siskiu D24 is an excellent 24-inch dual suspension mountain bike for young riders or those who prefer a more compact frame. This bike offers excellent control and comfort on rough terrains, featuring both front and rear suspension for maximum shock absorption.'
-                    }
-                elif suspension_type == 'hardtail':
-                    recommended_bike = {
-                        'name': 'Polygon Premier 24 Hardtail Mountain Bike',
-                        'image': 'polygon.webp',
-                        'description': 'The Polygon Premier 24 is a high-quality hardtail mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and front suspension, it offers a perfect balance of efficiency and comfort for various trail conditions.'
+                        'description': 'The Polygon Siskiu D24 is a high-quality hardtail mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and front suspension, it offers a perfect balance of efficiency and comfort for various trail conditions.'
                     }
             else:
                 recommended_bike = {
@@ -149,20 +81,3 @@ def bike_selector():
             recommended_bike['description'] += f" Recommended with {wheel_size} inch wheels, which are well-suited for this type of bike and your riding preferences."
 
     return render_template('bike_selector.html', recommended_bike=recommended_bike)
-
-@app.route('/videos')
-def videos():
-    return render_template('videos.html')
-
-@app.route('/static/images/dual_suspension_mountain_bike.jpg')
-def serve_dual_suspension_bike_image():
-    image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Dual_suspension_mountain_bike.jpg/640px-Dual_suspension_mountain_bike.jpg"
-    response = requests.get(image_url)
-    return send_file(
-        io.BytesIO(response.content),
-        mimetype='image/jpeg',
-        download_name='dual_suspension_mountain_bike.jpg'
-    )
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
