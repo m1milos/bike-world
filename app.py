@@ -79,12 +79,19 @@ def bike_selector():
                 'description': 'A high-performance road bike with a lightweight frame, perfect for racing and long rides.' if budget == 'high' else 'A versatile road bike suitable for commuting and fitness riding, offering a good balance of speed and comfort.'
             }
         elif bike_type == 'mountain':
-            if suspension_type == 'dual' and wheel_size == '24':
-                recommended_bike = {
-                    'name': 'Polygon Siskiu D24 Mountain Bike',
-                    'image': 'polygon-siskiu-d24.webp',
-                    'description': 'The Polygon Siskiu D24 is an excellent 24-inch dual suspension mountain bike for young riders or those who prefer a more compact frame. This bike offers excellent control and comfort on rough terrains, featuring both front and rear suspension for maximum shock absorption.'
-                }
+            if wheel_size == '24':
+                if suspension_type == 'dual':
+                    recommended_bike = {
+                        'name': 'Polygon Siskiu D24 Mountain Bike',
+                        'image': 'polygon-siskiu-d24.webp',
+                        'description': 'The Polygon Siskiu D24 is an excellent 24-inch dual suspension mountain bike for young riders or those who prefer a more compact frame. This bike offers excellent control and comfort on rough terrains, featuring both front and rear suspension for maximum shock absorption.'
+                    }
+                elif suspension_type == 'hardtail':
+                    recommended_bike = {
+                        'name': 'Polygon Premier 24 Hardtail Mountain Bike',
+                        'image': 'polygon.webp',
+                        'description': 'The Polygon Premier 24 is a high-quality hardtail mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and front suspension, it offers a perfect balance of efficiency and comfort for various trail conditions.'
+                    }
             else:
                 recommended_bike = {
                     'name': f"{suspension_type.capitalize() if suspension_type else 'Mountain'} Bike",
