@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
+import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'  # Replace with a secure secret key
+app.secret_key = os.urandom(24)
 
 @app.route('/bike-selector', methods=['GET', 'POST'])
 def bike_selector():
@@ -15,18 +16,18 @@ def bike_selector():
         budget = request.form.get('budget')
         electric_assist = 'electric_assist' in request.form
 
-        if bike_type == 'road':
-            recommended_bike = {
-                'name': 'Road Bike',
-                'image': 'road_bike.jpg',
-                'description': "A lightweight bike designed for speed and efficiency on paved roads. Ideal for long distances, racing, or fast-paced rides on smooth surfaces."
-            }
-        elif bike_type == 'mountain':
+        if bike_type == 'mountain':
             if wheel_size == '24':
-                if suspension_type == 'hardtail':
+                if suspension_type == 'dual':
+                    recommended_bike = {
+                        'name': 'Polygon Siskiu D24 Dual Suspension Mountain Bike',
+                        'image': 'polygon-siskiu-d24.webp',
+                        'description': 'The Polygon Siskiu D24 is a high-quality dual suspension mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and full suspension, it offers excellent control and comfort for various trail conditions.'
+                    }
+                elif suspension_type == 'hardtail':
                     recommended_bike = {
                         'name': 'Polygon Premier 24 Hardtail Mountain Bike',
-                        'image': 'polygon.webp',
+                        'image': 'polygon-siskiu-d24.webp',  # Updated image for 24-inch hardtail
                         'description': 'The Polygon Premier 24 is a high-quality hardtail mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and front suspension, it offers a perfect balance of efficiency and comfort for various trail conditions.'
                     }
             else:
@@ -35,6 +36,12 @@ def bike_selector():
                     'image': 'mountain_bike.jpg',
                     'description': f"A {'mountain' if not suspension_type else suspension_type} bike designed for off-road adventures. "
                 }
+        elif bike_type == 'road':
+            recommended_bike = {
+                'name': 'Road Bike',
+                'image': 'road_bike.jpg',
+                'description': "A lightweight bike designed for speed and efficiency on paved roads. Ideal for long distances, racing, or fast-paced rides on smooth surfaces."
+            }
         elif bike_type == 'hybrid':
             recommended_bike = {
                 'name': 'Hybrid Bike',
