@@ -4,9 +4,12 @@ import os
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/bike-selector', methods=['GET', 'POST'])
 def bike_selector():
-    recommended_bike = None
     if request.method == 'POST':
         bike_type = request.form.get('bike_type')
         suspension_type = request.form.get('suspension_type')
@@ -14,96 +17,59 @@ def bike_selector():
         primary_use = request.form.get('primary_use')
         wheel_size = request.form.get('wheel_size')
         budget = request.form.get('budget')
-        electric_assist = 'electric_assist' in request.form
+        electric_assist = request.form.get('electric_assist')
+
+        # Simple logic to recommend a bike
+        recommended_bike = {
+            'name': 'Generic Bike',
+            'image': 'road_bike.jpg',
+            'description': 'A versatile bike suitable for various riding conditions.'
+        }
 
         if bike_type == 'mountain':
-            if wheel_size == '24':
-                if suspension_type == 'dual':
-                    recommended_bike = {
-                        'name': 'Polygon Siskiu D24 Dual Suspension Mountain Bike',
-                        'image': 'polygon-siskiu-d24.webp',
-                        'description': 'The Polygon Siskiu D24 is a high-quality dual suspension mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and full suspension, it offers excellent control and comfort for various trail conditions.'
-                    }
-                elif suspension_type == 'hardtail':
-                    recommended_bike = {
-                        'name': 'Polygon Premier 24 Hardtail Mountain Bike',
-                        'image': 'polygon.webp',
-                        'description': 'The Polygon Premier 24 is a high-quality hardtail mountain bike designed for young riders or adults who prefer a more compact frame. With its 24-inch wheels and front suspension, it offers a perfect balance of efficiency and comfort for various trail conditions.'
-                    }
-            else:
-                recommended_bike = {
-                    'name': f"{suspension_type.capitalize() if suspension_type else 'Mountain'} Bike",
-                    'image': 'mountain_bike.jpg',
-                    'description': f"A {'mountain' if not suspension_type else suspension_type} bike designed for off-road adventures. "
-                }
-        elif bike_type == 'road':
-            recommended_bike = {
-                'name': 'Road Bike',
-                'image': 'road_bike.jpg',
-                'description': "A lightweight bike designed for speed and efficiency on paved roads. Ideal for long distances, racing, or fast-paced rides on smooth surfaces."
-            }
-        elif bike_type == 'hybrid':
-            recommended_bike = {
-                'name': 'Hybrid Bike',
-                'image': 'hybrid_bike.jpg',
-                'description': "A versatile bike that combines features of road and mountain bikes, suitable for various terrains and uses. Offers a comfortable upright position and is great for commuting, fitness riding, and light trail use."
-            }
-        elif bike_type == 'cruiser':
-            recommended_bike = {
-                'name': 'Cruiser Bike',
-                'image': 'cruiser_bike.jpg',
-                'description': 'A comfortable bike for casual rides and leisurely cycling in flat areas. Features a relaxed upright position and wide tires, perfect for easy rides around town or along the beach.'
-            }
-        elif bike_type == 'electric':
-            recommended_bike = {
-                'name': 'Electric Bike',
-                'image': 'electric_bike.jpg',
-                'description': "An electric-assist bike, providing extra power for easier riding and longer distances. Ideal for commuters, those tackling hilly terrain, or riders wanting to extend their range."
-            }
-        else:
-            # Fallback option if no specific bike type is selected
-            recommended_bike = {
-                'name': 'Versatile Hybrid Bike',
-                'image': 'hybrid_bike.jpg',
-                'description': "A versatile hybrid bike that combines features of various bike types, suitable for multiple terrains and uses. This bike is recommended based on your preferences for a well-rounded riding experience."
-            }
-
-        # Add suspension information to the description for all bike types
-        if suspension_type and bike_type != 'mountain':
             if suspension_type == 'dual':
-                recommended_bike['description'] += " Features front and rear suspension for maximum control on technical trails and rough terrain."
+                recommended_bike['name'] = 'Full Suspension Mountain Bike'
+                recommended_bike['image'] = 'polygon-siskiu-d24.webp'
+                recommended_bike['description'] = 'A high-performance mountain bike with front and rear suspension, perfect for rough terrains and technical trails.'
             elif suspension_type == 'hardtail':
-                recommended_bike['description'] += " Equipped with front suspension, offering a balance of efficiency and comfort for various terrains."
-            elif suspension_type == 'no_suspension':
-                recommended_bike['description'] += " A rigid frame provides direct feedback from the terrain, ideal for riders who prefer simplicity and efficiency."
+                recommended_bike['name'] = 'Hardtail Mountain Bike'
+                recommended_bike['image'] = 'polygon.webp'
+                recommended_bike['description'] = 'A versatile mountain bike with front suspension, ideal for a mix of trail riding and cross-country adventures.'
+            else:
+                recommended_bike['name'] = 'Rigid Mountain Bike'
+                recommended_bike['image'] = 'mountain_bike.jpg'
+                recommended_bike['description'] = 'A lightweight and efficient mountain bike without suspension, best for smooth trails and cross-country riding.'
 
-        # Additional customization based on other factors
-        if riding_surface == 'gravel' and bike_type != 'mountain':
-            recommended_bike['name'] = f"Gravel-ready {recommended_bike['name']}"
-            recommended_bike['description'] += " This bike has been adapted for gravel riding with slightly wider tires and a more stable frame geometry."
+        elif bike_type == 'road':
+            recommended_bike['name'] = 'Road Bike'
+            recommended_bike['image'] = 'Roadbike.jpg'
+            recommended_bike['description'] = 'A lightweight and aerodynamic bike designed for speed on paved roads.'
 
-        if primary_use == 'commuting' and bike_type not in ['cruiser', 'electric']:
-            recommended_bike['description'] += " For commuting, this bike can be equipped with racks and fenders to make your daily rides more convenient."
+        elif bike_type == 'hybrid':
+            recommended_bike['name'] = 'Hybrid Bike'
+            recommended_bike['image'] = 'hybrid_bike.jpg'
+            recommended_bike['description'] = 'A versatile bike that combines features of both road and mountain bikes, suitable for various terrains.'
 
-        if electric_assist and bike_type != 'electric':
-            recommended_bike['name'] = f"Electric {recommended_bike['name']}"
-            recommended_bike['description'] += " As per your preference, this bike comes with electric assist, providing extra power when you need it."
+        elif bike_type == 'cruiser':
+            recommended_bike['name'] = 'Cruiser Bike'
+            recommended_bike['image'] = 'cruiser_bike.jpg'
+            recommended_bike['description'] = 'A comfortable, laid-back bike perfect for casual rides on flat terrain.'
 
-        if wheel_size and wheel_size != '24':
-            recommended_bike['description'] += f" Recommended with {wheel_size} inch wheels, which are well-suited for this type of bike and your riding preferences."
+        elif bike_type == 'electric' or electric_assist:
+            recommended_bike['name'] = 'Electric Bike'
+            recommended_bike['image'] = 'electric_bike.jpg'
+            recommended_bike['description'] = 'A bike with an electric motor to assist pedaling, great for commuting or longer rides.'
 
-    return render_template('bike_selector.html', recommended_bike=recommended_bike)
+        return render_template('bike_selector.html', recommended_bike=recommended_bike)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+    return render_template('bike_selector.html')
 
 @app.route('/bike-types')
 def bike_types():
     bikes = [
         {
             'name': 'Road Bike',
-            'image': 'road_bike.jpg',
+            'image': 'Roadbike.jpg',
             'description': 'Designed for speed and efficiency on paved roads.'
         },
         {
